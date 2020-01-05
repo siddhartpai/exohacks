@@ -1,3 +1,5 @@
+const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec"
+
 var getCardController = function() {
 //       	this.cards = [
 //		{
@@ -83,3 +85,14 @@ function respond(data){
 // addScript("")
 }
 
+const postIdea = (author, idea) => {
+	const xhttp = new XMLHttpRequest();
+	xhttp.open("POST", APP_SCRIPT_URL, true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(`author=${author}&idea=${idea}`);
+	xhttp.onreadystatechange = (e) => {
+		if (e.target.readyState == 4) {
+			console.log(e.target.status, JSON.parse(xhttp.responseText))
+		}
+	}
+}
