@@ -23,3 +23,6 @@ body{
 		 transform: translateY(-50%);
 		 }
 
+#wrapper{
+	display: none;
+}
