@@ -1,54 +1,21 @@
 const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec"
 
 var getCardController = function() {
-//       	this.cards = [
-//		{
-//		 title: "Exotel on mobile",
-//		 color: "#173F5F",
-//		 link: ""
-//		},
-//		{
-//		 title: "Voice of future",
-//		 color: "#20639B",
-//		 link: ""
-//		},
-//		{
-//		 title: "Automation in Exotel",
-//		 color: "#3CAEA3",
-//		 link: "",
-//		},
-//		{
-//		 title: "Voice of future",
-//		 color: "#F6D55C",
-//		 link: ""
-//		},
-//		{
-//		 title: "Crystal ball of data",
-//		 color: "#ED553B",
-//		 link: ""
-//		},
-//		{
-//		 title: "Other",
-//		 color: "",
-//		 link: ""
-//		}
-//	];
-	this.templateCard = document.querySelector('#template-card');
+	this.templateCard = document.querySelector('#template-card');	
 	this.createNewTemplateCard = function() { return this.templateCard.content.cloneNode(true); }
-	
+
 	this.createCard = function(data) {
-            var card = createNewTemplateCard();
-            var title = document.createTextNode(data.title);
-            card.querySelector('.card > .title').appendChild(title);
+		var card = createNewTemplateCard();
+		var title = document.createTextNode(data.title);
+		card.querySelector('.card > .title').appendChild(title);
 	    card.querySelector('.card').style.backgroundColor = data.color;
-	    console.log(data)
-	    card.querySelector('.card').href = data.link; 
-	    card.querySelector('.card').addEventListener('click',function () {
-	    	addScript(data.link);
-	    });
+	    card.querySelector('.card').link = data.link;
+	    // card.querySelector('.card').addEventListener('click',function () {
+	    	// addScript(data.link);
+	    // });
 	    return card;
 	}
-	
+
 	this.appendCards = function(cards) {
 		cards.map((data)=>{
 			var card = createCard(data);
