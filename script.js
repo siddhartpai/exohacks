@@ -52,14 +52,32 @@ function respond(data){
 // addScript("")
 }
 
-const postIdea = (author, idea) => {
+const postIdea = (author, idea) => 	post(`author=${author}&idea=${idea}`)
+
+const getIdea = (callback) => get("", (res) => callback(res))
+
+const post = (params, callback) => {
 	const xhttp = new XMLHttpRequest();
 	xhttp.open("POST", APP_SCRIPT_URL, true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(`author=${author}&idea=${idea}`);
+	xhttp.send(params);
 	xhttp.onreadystatechange = (e) => {
 		if (e.target.readyState == 4) {
 			console.log(e.target.status, JSON.parse(xhttp.responseText))
+			callback(JSON.parse(xhttp.responseText))
+		}
+	}
+}
+
+const get = (params, callback) => {
+	const xhttp = new XMLHttpRequest();
+	xhttp.open("GET", APP_SCRIPT_URL, true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(params);
+	xhttp.onreadystatechange = (e) => {
+		if (e.target.readyState == 4) {
+			// console.log(e.target.status, JSON.parse(xhttp.responseText))
+			callback((xhttp.responseText))
 		}
 	}
 }
