@@ -1,57 +1,21 @@
 const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec"
 
 var getCardController = function() {
-	{
-		//       	this.cards = [
-		//		{
-		//		 title: "Exotel on mobile",
-		//		 color: "#173F5F",
-		//		 link: ""
-		//		},
-		//		{
-		//		 title: "Voice of future",
-		//		 color: "#20639B",
-		//		 link: ""
-		//		},
-		//		{
-		//		 title: "Automation in Exotel",
-		//		 color: "#3CAEA3",
-		//		 link: "",
-		//		},
-		//		{
-		//		 title: "Voice of future",
-		//		 color: "#F6D55C",
-		//		 link: ""
-		//		},
-		//		{
-		//		 title: "Crystal ball of data",
-		//		 color: "#ED553B",
-		//		 link: ""
-		//		},
-		//		{
-		//		 title: "Other",
-		//		 color: "",
-		//		 link: ""
-		//		}
-		//	];
-	}
-
 	this.templateCard = document.querySelector('#template-card');
 	this.createNewTemplateCard = function() { return this.templateCard.content.cloneNode(true); }
-	
 	this.createCard = function(data) {
         var card = createNewTemplateCard();
         var title = document.createTextNode(data.title);
         card.querySelector('.card > .title').appendChild(title);
+
 	    card.querySelector('.card').style.backgroundColor = data.color;
-	    console.log(data)
-	    card.querySelector('.card').href = data.link; 
-	    card.querySelector('.card').addEventListener('click',function () {
-	    	addScript(data.link);
-	    });
+	    card.querySelector('.card').link = data.link;
+	    // card.querySelector('.card').addEventListener('click',function () {
+	    	// addScript(data.link);
+	    // });
 	    return card;
 	}
-	
+
 	this.appendCards = function(cards) {
 		var wrapper = document.createElement("div");
 		wrapper.id = 'wrapper';
@@ -96,14 +60,32 @@ function respond(data){
 // addScript("")
 }
 
-const postIdea = (author, idea) => {
+const postIdea = (author, idea) => 	post(`author=${author}&idea=${idea}`)
+
+const getIdea = (callback) => get("", (res) => callback(res))
+
+const post = (params, callback) => {
 	const xhttp = new XMLHttpRequest();
 	xhttp.open("POST", APP_SCRIPT_URL, true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(`author=${author}&idea=${idea}`);
+	xhttp.send(params);
 	xhttp.onreadystatechange = (e) => {
 		if (e.target.readyState == 4) {
 			console.log(e.target.status, JSON.parse(xhttp.responseText))
+			callback(JSON.parse(xhttp.responseText))
+		}
+	}
+}
+
+const get = (params, callback) => {
+	const xhttp = new XMLHttpRequest();
+	xhttp.open("GET", APP_SCRIPT_URL, true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(params);
+	xhttp.onreadystatechange = (e) => {
+		if (e.target.readyState == 4) {
+			// console.log(e.target.status, JSON.parse(xhttp.responseText))
+			callback((xhttp.responseText))
 		}
 	}
 }
