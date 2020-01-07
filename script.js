@@ -1,45 +1,48 @@
 const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec"
 
 var getCardController = function() {
-//       	this.cards = [
-//		{
-//		 title: "Exotel on mobile",
-//		 color: "#173F5F",
-//		 link: ""
-//		},
-//		{
-//		 title: "Voice of future",
-//		 color: "#20639B",
-//		 link: ""
-//		},
-//		{
-//		 title: "Automation in Exotel",
-//		 color: "#3CAEA3",
-//		 link: "",
-//		},
-//		{
-//		 title: "Voice of future",
-//		 color: "#F6D55C",
-//		 link: ""
-//		},
-//		{
-//		 title: "Crystal ball of data",
-//		 color: "#ED553B",
-//		 link: ""
-//		},
-//		{
-//		 title: "Other",
-//		 color: "",
-//		 link: ""
-//		}
-//	];
+	{
+		//       	this.cards = [
+		//		{
+		//		 title: "Exotel on mobile",
+		//		 color: "#173F5F",
+		//		 link: ""
+		//		},
+		//		{
+		//		 title: "Voice of future",
+		//		 color: "#20639B",
+		//		 link: ""
+		//		},
+		//		{
+		//		 title: "Automation in Exotel",
+		//		 color: "#3CAEA3",
+		//		 link: "",
+		//		},
+		//		{
+		//		 title: "Voice of future",
+		//		 color: "#F6D55C",
+		//		 link: ""
+		//		},
+		//		{
+		//		 title: "Crystal ball of data",
+		//		 color: "#ED553B",
+		//		 link: ""
+		//		},
+		//		{
+		//		 title: "Other",
+		//		 color: "",
+		//		 link: ""
+		//		}
+		//	];
+	}
+
 	this.templateCard = document.querySelector('#template-card');
 	this.createNewTemplateCard = function() { return this.templateCard.content.cloneNode(true); }
 	
 	this.createCard = function(data) {
-            var card = createNewTemplateCard();
-            var title = document.createTextNode(data.title);
-            card.querySelector('.card > .title').appendChild(title);
+        var card = createNewTemplateCard();
+        var title = document.createTextNode(data.title);
+        card.querySelector('.card > .title').appendChild(title);
 	    card.querySelector('.card').style.backgroundColor = data.color;
 	    console.log(data)
 	    card.querySelector('.card').href = data.link; 
@@ -50,13 +53,19 @@ var getCardController = function() {
 	}
 	
 	this.appendCards = function(cards) {
+		var wrapper = document.createElement("div");
+		wrapper.id = 'wrapper';
 		cards.map((data)=>{
 			var card = createCard(data);
-			document.body.appendChild(card);
+			wrapper.appendChild(card);
 		});
+		document.body.appendChild(wrapper);
 	}
+
 	return this;
 }
+
+
 var onSignIn = function(googleUser) {
 	     var profile = googleUser.getBasicProfile();
 	     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -79,6 +88,8 @@ function addScript( src ) {
 	  s.setAttribute('type','application/javascript');
 	  document.body.appendChild( s );
 }
+
+
 function respond(data){
  var cardController = getCardController()
  cardController.appendCards(data)
