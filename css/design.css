@@ -1,0 +1,104 @@
+p {
+  font-family: Source Sans Pro, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.wrapper {
+  display: none;
+}
+
+.active {
+  display: block !important;
+}
+
+.blue-color {
+  background-color: hsl(204, 86%, 53%);
+}
+
+.grey-lighter {
+  color: hsl(0, 0%, 86%);
+}
+
+.container {
+  margin: 2vh auto;
+  width: 90vw;
+  text-align: center;
+  align-items: stretch;
+  flex: 1;
+}
+
+/* Primary Button css */
+.btn {
+  display: block;
+  border: 0;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin: auto 4vw;
+  text-decoration: none;
+}
+
+.btn+.btn {
+  margin-top: 3vh;
+}
+
+.btn:hover {
+  background-color: #1195d9;
+}
+
+h3, h2 {
+  font-size: 2rem;
+  color: #6b6666de;
+}
+
+a.button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
+  margin: auto 1vw auto 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  height: 37px;
+  color: #000;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+a.button:hover {
+  box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
+}
+
+/* Fab Button */
+.fab {
+  width: 60px;
+  height: 60px;
+  background-color: #0fa5f3;
+  border-radius: 50%;
+  transition: all 0.1s ease-in-out;
+  font-size: 45px;
+  color: white;
+  text-align: center;
+  line-height: 53px;
+  position: fixed;
+  right: 4vw;
+  bottom: 15vh;
+}
+
+.fab:hover {
+  box-shadow: 0 6px 14px 0 #666;
+  transform: scale(1.05);
+}

@@ -1,0 +1,40 @@
+@media(max-width: 1220px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+  }
+}
+
+@media(min-width: 1024px) {
+  a.button {
+    line-height: 2.5vh;
+  }
+
+  .modal-content {
+    width: 60%;
+  }
+}
+
+@media(max-width: 768px) {
+  .signin-text, #wrapper-noprojects {
+    top: 33% !important;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .exo-logo {
+    max-height: 1.75rem;
+  }
+
+  .fab {
+    bottom: 18vh;
+  }
+}
+
+@media all and (max-width:30em) {
+  a.button {
+    display: block;
+    margin: 0.4em 2vw;
+  }
+}
