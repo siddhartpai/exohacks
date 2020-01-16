@@ -1,31 +1,95 @@
-<html>
-	<head>
-		<link type="text/css" rel="stylesheet" href="style.css">
-		<meta name="google-signin-client_id" content="1033760212983-c0gok4qevvtc317enebfi7rhhmjb7li4.apps.googleusercontent.com">
-	        <script src="./script.js"></script>
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	</head>
-	<body>
-			  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-			  <div id="wrapper-themes" class="wrapper active"></div>
-			  <div id="wrapper-projects" class="wrapper">
-				<div id="wrapper-noprojects" class="wrapper">No Projects Found</div>
-				<div id="add-project" class="btn-round" onclick="showCreateProject()"><span>+</span></div>
-			  </div>
-			  <div id="wrapper-create-project" class="wrapper">
-				  <input type="text" name="idea" id="idea" placeholder="Your idea here">
-				  <textarea name="description" id="description" placeholder="description"></textarea>
-				  <input type="submit" onclick="createProject()">
-			  </div>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-	</body>
-	<template id="template-card">
-		<div class="card">
-			<div class = "title"></div>
-			<div class = "join button">JOIN</div>
-			<div class = "unjoin button">UNJOIN</div>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-signin-client_id" content="1033760212983-c0gok4qevvtc317enebfi7rhhmjb7li4.apps.googleusercontent.com">
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+	<!-- Loader -->
+	<div id="loader" class="loading">Loading&#8230;</div>
+
+	<!-- Navbar -->
+	<header class="navbar">
+		<span class="logo">
+			<img src="./img/exotel_logo.png" alt="Exotel Logo" class="exo-logo" />
+		</span>
+		<ul class="menu">
+			<a class="button" href="#" onclick="window.location.reload();">Home</a>
+			<div id="signin" class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onSignInFailed" style="display: none;"></div>
+			<a id="signout" class="button" href="#" onclick="signOut();" style="display: none;">Logout</a>
+		</ul>
+	</header>
+
+	<!-- Main Container -->
+	<main class="container">
+		<h3 id="signin-text" class="signin-text">You need to Login with your Exotel Email</h3>
+		<div id="wrapper-themes" class="wrapper">
+			<h2>Themes</h2>
+			<div id="wrapper-themes-cards" class="card-container">
+				<!-- Theme Cards Will be appended here -->
+			</div>
 		</div>
-	</template>
-	<!-- <script src="https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec?callback=respond" async defer></script> -->
+		<div id="wrapper-projects" class="wrapper">
+			<h2>Projects</h2>
+			<div id="wrapper-projects-cards" class="card-container">
+				<!-- Projects Cards will be appended here -->
+			</div>
+			<h3 id="wrapper-noprojects" class="wrapper">No Projects Found</h3>
+			<div id="add-project" class="fab" onclick="displayModal(true)"> + </div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="page-footer">
+		<span>© 2019, Exotel Techcom Pvt. Ltd. All Rights Reserved</span>
+		<h3 class="footer-item"> Made with ❤️ by
+			<a href="http://github.com/sagarchoudhary96" class="grey-lighter" target="_blank">Sâgâr Çhôùdhârý</a>
+		</h3>
+	</footer>
+
+	<!-- Modal -->
+	<div id="create-project" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="displayModal(false)">X</span>
+			<form onsubmit="return createProject(event)">
+				<label for="idea">Project Idea</label>
+				<input type="text" name="idea" id="idea" placeholder="Your idea here" required="true">
+				<label for="description">Description</label>
+				<textarea name="description" id="description" placeholder="description" rows="4" required="true"></textarea>
+				<input type="submit" class="btn blue-color submit-btn" />
+			</form>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="./script.js"></script>
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+</body>
+
+<!--  Templates -->
+<template id="template-themes-card">
+	<article class="card">
+		<img class="card-image" src="https://picsum.photos/601/500" alt="Sample photo">
+		<div class="text">
+			<h3 class="card-title"></h3>
+			<p class="card-subtitle">Collaboratively administrate empowered markets via plug-and-play networks.</p>
+			<a class="btn blue-color">See Projects</a>
+		</div>
+	</article>
+</template>
+
+<template id="template-projects-card">
+	<article class="card">
+		<div class="text">
+			<h3 class="card-title"></h3>
+			<a class="btn join blue-color" style="display: none;">Join Project</a>
+			<a class="btn unjoin blue-color" style="display: none;">Unjoin Project</a>
+		</div>
+	</article>
+</template>
+
 </html>

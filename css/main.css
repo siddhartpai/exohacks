@@ -1,0 +1,52 @@
+@import "header.css";
+@import "footer.css";
+@import "design.css";
+@import "modal.css";
+@import "loader.css";
+@import "mediaquery.css";
+
+/* Card Layout css */
+.card {
+  border: 1px solid #e7e7e7;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  transition: box-shadow .3s;
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card-image {
+  max-width: 100%;
+}
+
+.card-title {
+  text-transform: capitalize;
+}
+
+.card-subtitle {
+  color: #6d7780;
+}
+
+.text {
+  padding: 0 20px 20px;
+}
+
+.signin-text, #wrapper-noprojects {
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  height: 30%;
+  width: 50%;
+  margin: -2% 0 0 -25%;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  grid-gap: 25px;
+  align-items: stretch;
+  justify-content: center;
+}
