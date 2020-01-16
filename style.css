@@ -3,12 +3,16 @@ body{
 }
 
 .card {
-	    height: 30vh;
 	    /* margin-bottom: 10px; */
-	    overflow-y: visible;
 	    /* display: inline-block; */
-	    font-family: verdana;
-	    text-align: center;
+	    height: 30vh; 
+	    overflow-y: visible;
+		font-family: verdana;
+		text-align: center; 
+		/* border-radius: 27px;
+		background: linear-gradient(145deg, #dfe1f0, #bbbdca);
+		box-shadow: 5px 5px 10px #abacb8, 
+					-5px -5px 10px #f5f8ff; */
 	}
 	.card .title{
 		 color:white;
@@ -23,6 +27,52 @@ body{
 		 transform: translateY(-50%);
 		 }
 
-#wrapper{
+	.card .button {
+		position: relative;
+		top: -88%;
+		left: 40%;
+		width: 7vh;
+		padding: 1vh;
+		display: none;
+	}
+	.card .join {
+		background-color: aliceblue;
+	}
+	.card .unjoin {
+		background-color: blue;
+	}
+.wrapper{
 	display: none;
+}
+
+.active {
+	display: block !important;
+}
+
+#wrapper-noprojects {
+	background-color: red;;
+}
+
+
+.btn-round {
+    background-color: #d23f31;
+    border-radius: 999em;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    line-height: 1;
+    font-size: 36px;
+    position: relative;
+    cursor: pointer;
+}
+
+.btn-round span {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -22px;
+    color: #FFF;
 }

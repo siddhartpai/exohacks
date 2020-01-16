@@ -7,12 +7,25 @@
 		<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 	</head>
 	<body>
-              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+			  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+			  <div id="wrapper-themes" class="wrapper active"></div>
+			  <div id="wrapper-projects" class="wrapper">
+				<div id="wrapper-noprojects" class="wrapper">No Projects Found</div>
+				<div id="add-project" class="btn-round" onclick="showCreateProject()"><span>+</span></div>
+			  </div>
+			  <div id="wrapper-create-project" class="wrapper">
+				  <input type="text" name="idea" id="idea" placeholder="Your idea here">
+				  <textarea name="description" id="description" placeholder="description"></textarea>
+				  <input type="submit" onclick="createProject()">
+			  </div>
+
 	</body>
 	<template id="template-card">
 		<div class="card">
 			<div class = "title"></div>
+			<div class = "join button">JOIN</div>
+			<div class = "unjoin button">UNJOIN</div>
 		</div>
 	</template>
-	<script src="https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec?callback=respond" async defer></script>
+	<!-- <script src="https://script.google.com/macros/s/AKfycbzS21pO6ZUhfWjhEHfgR8mzAG8OV1xAqzQP4SXU4jNn9rgtjqG-/exec?callback=respond" async defer></script> -->
 </html>
