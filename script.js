@@ -187,10 +187,11 @@ function createProject(e) {
     idea,
     description
   } = event.target;
-  const owner = window.gProfile.getEmail();
+  const email  = window.gProfile.getEmail();
+  const owner = window.gProfile.getName();
   const themeId = window.selectedTheme;
   displayLoader(true)
-  get('action=CREATE_PROJECT&name=' + idea.value + '&description=' + description.value + '&owner=' + owner + '&theme_id=' + themeId, data => {
+  get('action=CREATE_PROJECT&name=' + idea.value + '&description=' + description.value + '&owner=' + owner + '&email=' + email + '&theme_id=' + themeId, data => {
     console.log(error)
     displayModal(false)
     showProjects(themeId)
