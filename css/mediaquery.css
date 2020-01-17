@@ -1,6 +1,6 @@
 @media(max-width: 1220px) {
   .card-container {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
   }
 }
 
@@ -16,7 +16,7 @@
 
 @media(max-width: 768px) {
   .signin-text, #wrapper-noprojects {
-    top: 33%;
+    top: 33% !important;
   }
 
   .logo {
@@ -35,6 +35,6 @@
 @media all and (max-width:30em) {
   a.button {
     display: block;
-    margin: 0.4em auto;
+    margin: 0.4em 2vw;
   }
 }

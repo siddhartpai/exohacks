@@ -154,7 +154,7 @@ function showProjects(themeId) {
 
 function joinProject(projectId, button) {
   let buttonWrapper = button.parentElement;
-  get("action=JOIN_PROJECT&id=" + projectId + "&user=" + window.gProfile.getEmail(), data => {
+  get("action=JOIN_PROJECT&id=" + projectId + "&user=" + window.gProfile.getEmail()+"&username="+window.gProfile.getName(), data => {
     let jsonData = JSON.parse(data);
     displayLoader(false);
     if (!jsonData.error) {
@@ -192,7 +192,6 @@ function createProject(e) {
   const themeId = window.selectedTheme;
   displayLoader(true)
   get('action=CREATE_PROJECT&name=' + idea.value + '&description=' + description.value + '&owner=' + owner + '&email=' + email + '&theme_id=' + themeId, data => {
-    console.log(error)
     displayModal(false)
     showProjects(themeId)
   });
