@@ -7,6 +7,8 @@ const signInButton = document.getElementById('signin');
 const logoutButton = document.getElementById('signout');
 const signInText = document.getElementById('signin-text');
 const createProjectModal = document.getElementById('create-project');
+const SnackbarElem = document.getElementById("snackbar");
+const createProjectForm = document.getElementById("create-project-form");
 window.onclick = function(event) {
   if (event.target == createProjectModal) {
     displayModal(false)
@@ -32,6 +34,8 @@ const getCardController = function() {
     card.querySelector('.card').setAttribute('data-type', type);
     // If Project Cards
     if (type == PROJECT) {
+      let description = document.createTextNode(data.description)
+      card.querySelector('.card-subtitle').appendChild(description)
       let email = window.gProfile.getEmail()
       let joinBtn = card.querySelector('.btn.join')
       let unjoinBtn = card.querySelector('.btn.unjoin')
@@ -54,6 +58,9 @@ const getCardController = function() {
         unjoinProject(data.id, this);
       })
     } else {
+      let projectCount = (data.projectCount === undefined || data.projectCount === null) ?  0 : data.projectCount
+      let description = document.createTextNode(`${projectCount} ${projectCount > 1 ? "Projects" : "Project"}`)
+      card.querySelector('.card-subtitle').appendChild(description)
       // If Themes Cards
       card.querySelector('.btn').addEventListener('click', function() {
         displayLoader(true)
@@ -68,7 +75,6 @@ const getCardController = function() {
     let wrapperCards = document.querySelector('#wrapper-' + type + '-cards');
 
     if (type === PROJECT && cards.length === 0) {
-      console.log("Here")
       wrapper.querySelector('#wrapper-noprojects').classList.add('active');
     } else {
       cards.map((data) => {
@@ -158,10 +164,11 @@ function joinProject(projectId, button) {
     let jsonData = JSON.parse(data);
     displayLoader(false);
     if (!jsonData.error) {
+      displaySnackbar("Success");
       buttonWrapper.querySelector('.btn.join').classList.remove('active');
       buttonWrapper.querySelector('.btn.unjoin').classList.add('active');
     } else {
-      console.log("error:", jsonData.message);
+      displaySnackbar(`Error: ${jsonData.message}`)
     }
   });
 
@@ -173,10 +180,11 @@ function unjoinProject(projectId, button) {
     let jsonData = JSON.parse(data);
     displayLoader(false);
     if (!jsonData.error) {
+      displaySnackbar("Success");
       buttonWrapper.querySelector('.btn.unjoin').classList.remove('active');
       buttonWrapper.querySelector('.btn.join').classList.add('active');
     } else {
-      console.log("error")
+      displaySnackbar(`Error: ${jsonData.message}`);
     }
   });
 }
@@ -192,6 +200,13 @@ function createProject(e) {
   const themeId = window.selectedTheme;
   displayLoader(true)
   get('action=CREATE_PROJECT&name=' + idea.value + '&description=' + description.value + '&owner=' + owner + '&email=' + email + '&theme_id=' + themeId, data => {
+    data = JSON.parse(data);
+    if (data.error) {
+      displaySnackbar(`Error: ${data.message}`);
+    } else {
+      displaySnackbar("Success");
+    }
+    createProjectForm.reset();
     displayModal(false)
     showProjects(themeId)
   });
@@ -217,6 +232,12 @@ function displaySigninText(show) {
   signInText.style.display = show ? 'block' : 'none'
 }
 
+function displaySnackbar(msg) {
+  SnackbarElem.innerHTML = msg;
+  SnackbarElem.classList.add("show");
+  setTimeout(() => SnackbarElem.classList.remove("show"), 3000);
+}
+
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function() {
@@ -236,15 +257,20 @@ var onSignIn = function(googleUser) {
 }
 
 function init() {
-  displayLoader(false);
   var auth2 = gapi.auth2.getAuthInstance();
-  if (auth2.isSignedIn.get() === true) {
-    displayLogoutButton(true);
-    displaySigninButton(false);
-  } else {
-    displayLogoutButton(false);
-    displaySigninButton(true);
-  }
+  displayLoader(true)
+  setTimeout(() => {
+    if (auth2.isSignedIn.get() === true) {
+      displayLogoutButton(true);
+      displaySigninButton(false);
+      displaySigninText(false);
+    } else {
+      displaySigninText(true)
+      displayLogoutButton(false);
+      displaySigninButton(true);
+      displayLoader(false);
+    }
+  }, 2000)
 }
 
 function onSignInFailed() {

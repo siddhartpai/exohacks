@@ -30,6 +30,11 @@
   .fab {
     bottom: 18vh;
   }
+
+  #snackbar {
+    min-width: 70vw !important;
+    margin-left: -40vw !important;
+  }
 }
 
 @media all and (max-width:30em) {
