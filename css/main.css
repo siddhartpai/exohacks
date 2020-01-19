@@ -26,7 +26,7 @@
   text-transform: capitalize;
 }
 
-.card-subtitle {
+.card-subtitle, .card-members {
   color: #6d7780;
 }
 
@@ -62,7 +62,7 @@
   border-radius: 2px;
   padding: 16px;
   position: fixed;
-  z-index: 1;
+  z-index: 1038;
   left: 50%;
   top: 30px;
   font-size: 17px;

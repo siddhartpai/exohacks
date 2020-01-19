@@ -28,7 +28,7 @@
 
 	<!-- Main Container -->
 	<main class="container">
-		<h3 id="signin-text" class="signin-text" style="display: none;">Please login with your Exotel email</h3>
+		<h3 id="signin-text" class="signin-text" style="display: none;">Please Sign into Exotel</h3>
 		<div id="wrapper-themes" class="wrapper">
 			<h2>Themes</h2>
 			<div id="wrapper-themes-cards" class="card-container">
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div id="wrapper-projects" class="wrapper">
-			<h2>Projects</h2>
+			<h2 id="theme-title">Projects</h2>
 			<div id="wrapper-projects-cards" class="card-container">
 				<!-- Projects Cards will be appended here -->
 			</div>
@@ -85,8 +85,9 @@
 		<div class="text">
 			<h3 class="card-title"></h3>
 			<p class="card-subtitle"></p>
-			<a class="btn join blue-color" style="display: none;">Join Project</a>
-			<a class="btn unjoin blue-color" style="display: none;">Unjoin Project</a>
+			<p class="card-members"></p>
+			<a class="btn join blue-color" style="display: none;">Join</a>
+			<a class="btn unjoin blue-color" style="display: none;">Unjoin</a>
 		</div>
 	</article>
 </template>

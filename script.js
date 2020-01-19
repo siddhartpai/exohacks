@@ -35,7 +35,9 @@ const getCardController = function() {
     // If Project Cards
     if (type == PROJECT) {
       let description = document.createTextNode(data.description)
+      let members = document.createTextNode(data.members.split(",").join(","))
       card.querySelector('.card-subtitle').appendChild(description)
+      card.querySelector('.card-members').appendChild(members)
       let email = window.gProfile.getEmail()
       let joinBtn = card.querySelector('.btn.join')
       let unjoinBtn = card.querySelector('.btn.unjoin')
@@ -55,7 +57,7 @@ const getCardController = function() {
 
       unjoinBtn.addEventListener('click', function() {
         displayLoader(true)
-        unjoinProject(data.id, this);
+        unjoinProject(data.id, this, data.members.split(","));
       })
     } else {
       let projectCount = (data.projectCount === undefined || data.projectCount === null) ?  0 : data.projectCount
@@ -67,7 +69,7 @@ const getCardController = function() {
       // If Themes Cards
       card.querySelector('.btn').addEventListener('click', function() {
         displayLoader(true)
-        showProjects(data.id);
+        showProjects(data.id, data.name);
       });
     }
     return card;
@@ -146,8 +148,10 @@ function showThemes() {
   });
 }
 
-function showProjects(themeId) {
+function showProjects(themeId, themeName) {
   window.selectedTheme = themeId;
+  window.selectedThemeName = themeName;
+  document.querySelector('#theme-title').innerText  = themeName;
   // Remove all previous project Cards
   Array.from(document.querySelectorAll('#wrapper-projects-cards>.card')).map(elem => {
     elem.parentNode.removeChild(elem)
@@ -177,13 +181,18 @@ function joinProject(projectId, button) {
 
 }
 
-function unjoinProject(projectId, button) {
+function unjoinProject(projectId, button, members) {
   let buttonWrapper = button.parentElement;
+  let card = buttonWrapper.parentElement;
   get("action=LEAVE_PROJECT&id=" + projectId + "&user=" + window.gProfile.getEmail(), data => {
     let jsonData = JSON.parse(data);
     displayLoader(false);
     if (!jsonData.error) {
       displaySnackbar("Success");
+      if(members.length == 1) {
+        //lastMember
+        card.parentElement.removeChild(card);
+      }
       buttonWrapper.querySelector('.btn.unjoin').classList.remove('active');
       buttonWrapper.querySelector('.btn.join').classList.add('active');
     } else {
@@ -201,6 +210,7 @@ function createProject(e) {
   const email  = window.gProfile.getEmail();
   const owner = window.gProfile.getName();
   const themeId = window.selectedTheme;
+  const themeName = window.selectedThemeName;
   displayLoader(true)
   get('action=CREATE_PROJECT&name=' + idea.value + '&description=' + description.value + '&owner=' + owner + '&email=' + email + '&theme_id=' + themeId, data => {
     data = JSON.parse(data);
@@ -211,7 +221,7 @@ function createProject(e) {
     }
     createProjectForm.reset();
     displayModal(false)
-    showProjects(themeId)
+    showProjects(themeId, themeName)
   });
 }
 
