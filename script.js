@@ -172,6 +172,10 @@ function joinProject(projectId, button) {
     displayLoader(false);
     if (!jsonData.error) {
       displaySnackbar("Success");
+      card = buttonWrapper.parentElement;
+      members = card.querySelector(".card-members").innerHTML.split(',')
+      members.push(window.gProfile.getEmail());
+      card.querySelector('.card-members').innerHTML = members.join(",")
       buttonWrapper.querySelector('.btn.join').classList.remove('active');
       buttonWrapper.querySelector('.btn.unjoin').classList.add('active');
     } else {
@@ -189,9 +193,13 @@ function unjoinProject(projectId, button, members) {
     displayLoader(false);
     if (!jsonData.error) {
       displaySnackbar("Success");
-      if(members.length == 1) {
+      if(members.length == 1 && members.indexOf(window.gProfile.getEmail())!=-1) {
         //lastMember
         card.parentElement.removeChild(card);
+      }else if(members.indexOf(window.gProfile.getEmail())){
+        delete members[window.gProfile.getEmail()];
+        card.querySelector(".card-members").innerText = members.join(",")
+
       }
       buttonWrapper.querySelector('.btn.unjoin').classList.remove('active');
       buttonWrapper.querySelector('.btn.join').classList.add('active');
