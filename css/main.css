@@ -28,6 +28,7 @@
 
 .card-subtitle, .card-members {
   color: #6d7780;
+  word-wrap: break-word;
 }
 
 .text {
