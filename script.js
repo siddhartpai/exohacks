@@ -59,8 +59,11 @@ const getCardController = function() {
       })
     } else {
       let projectCount = (data.projectCount === undefined || data.projectCount === null) ?  0 : data.projectCount
-      let description = document.createTextNode(`${projectCount} ${projectCount > 1 ? "Projects" : "Project"}`)
-      card.querySelector('.card-subtitle').appendChild(description)
+      if(projectCount >= 1) {
+        card.querySelector('.badge').innerText = data.projectCount
+        card.querySelector('.badge').classList.remove('empty');
+      }
+      // card.querySelector('.card-subtitle').appendChild(description)
       // If Themes Cards
       card.querySelector('.btn').addEventListener('click', function() {
         displayLoader(true)
